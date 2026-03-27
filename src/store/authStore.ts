@@ -36,8 +36,17 @@ const USERS_KEY = 'mini-store-users';
 
 function getStoredUsers(): AuthUser[] {
   if (typeof window === 'undefined') return SEED_USERS;
-  const stored = localStorage.getItem(USERS_KEY);
-  return stored ? JSON.parse(stored) : SEED_USERS;
+  try {
+    const stored = localStorage.getItem(USERS_KEY);
+    if (!stored) {
+      localStorage.setItem(USERS_KEY, JSON.stringify(SEED_USERS));
+      return SEED_USERS;
+    }
+    return JSON.parse(stored);
+  } catch {
+    localStorage.setItem(USERS_KEY, JSON.stringify(SEED_USERS));
+    return SEED_USERS;
+  }
 }
 
 function saveUsers(users: AuthUser[]): void {
@@ -58,8 +67,9 @@ export const useAuthStore = create<AuthState>()(
         set({ isLoading: true, error: null });
         await new Promise((resolve) => setTimeout(resolve, 400));
 
+        const normalizedEmail = email.trim().toLowerCase();
         const users = getStoredUsers();
-        const match = users.find((u) => u.email === email && u.password === password);
+        const match = users.find((u) => u.email === normalizedEmail && u.password === password);
 
         if (!match) {
           set({ isLoading: false, error: 'Invalid email or password' });
@@ -80,9 +90,10 @@ export const useAuthStore = create<AuthState>()(
           return false;
         }
 
+        const normalizedEmail = email.trim().toLowerCase();
         const users = getStoredUsers();
 
-        if (users.find((u) => u.email === email)) {
+        if (users.find((u) => u.email === normalizedEmail)) {
           set({ isLoading: false, error: 'Email already in use' });
           return false;
         }
@@ -90,7 +101,7 @@ export const useAuthStore = create<AuthState>()(
         const newUser: AuthUser = {
           id: Date.now().toString(),
           name,
-          email,
+          email: normalizedEmail,
           password,
           role: 'customer',
           createdAt: new Date().toISOString(),
@@ -103,7 +114,7 @@ export const useAuthStore = create<AuthState>()(
         return true;
       },
 
-      logout: () => set({ user: null, isAuthenticated: false, error: null }),
+      logout: () => set({ user: null, isAuthenticated: false, error: null, isLoading: false }),
 
       clearError: () => set({ error: null }),
     }),
