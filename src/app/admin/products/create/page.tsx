@@ -10,7 +10,7 @@ import { Input } from '@/components/ui/Input';
 import type { CreateProductInput } from '@/types/product';
 import toast from 'react-hot-toast';
 
-const CATEGORIES = ["electronics", "jewelery", "men's clothing", "women's clothing"];
+const CATEGORIES = ['electronics', 'jewelery', "men's clothing", "women's clothing"];
 
 export default function CreateProductPage() {
   const router = useRouter();
@@ -55,13 +55,13 @@ export default function CreateProductPage() {
   return (
     <div className="max-w-2xl">
       <div className="mb-6 flex items-center gap-3">
-        <button onClick={() => router.back()} className="text-gray-500 hover:text-blue-600">
+        <button onClick={() => router.back()} className="text-slate-400 hover:text-slate-700">
           <ArrowLeft className="h-5 w-5" />
         </button>
-        <h1 className="text-2xl font-bold text-gray-800">Create Product</h1>
+        <h1 className="text-2xl font-bold text-slate-800">Create Product</h1>
       </div>
 
-      <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+      <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <Input
             label="Title"
@@ -73,13 +73,13 @@ export default function CreateProductPage() {
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="flex flex-col gap-1">
-              <label className="text-sm font-medium text-gray-700">
+              <label className="text-sm font-medium text-slate-700">
                 Category <span className="text-red-500">*</span>
               </label>
               <select
                 value={form.category}
                 onChange={(e) => setForm({ ...form, category: e.target.value })}
-                className="rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                className="rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
               >
                 <option value="">Select a category</option>
                 {CATEGORIES.map((cat) => (
@@ -114,14 +114,14 @@ export default function CreateProductPage() {
           />
 
           <div className="flex flex-col gap-1">
-            <label className="text-sm font-medium text-gray-700">
+            <label className="text-sm font-medium text-slate-700">
               Description <span className="text-red-500">*</span>
             </label>
             <textarea
               value={form.description}
               onChange={(e) => setForm({ ...form, description: e.target.value })}
               rows={4}
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+              className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500"
               placeholder="Product description..."
             />
             {errors.description && <p className="text-xs text-red-500">{errors.description}</p>}

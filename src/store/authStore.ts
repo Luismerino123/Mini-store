@@ -20,7 +20,7 @@ const SEED_USERS: AuthUser[] = [
     email: 'admin@ministore.com',
     password: 'admin123',
     role: 'admin',
-    createdAt: new Date().toISOString(),
+    createdAt: '2024-01-01T00:00:00.000Z',
   },
   {
     id: '2',
@@ -28,7 +28,7 @@ const SEED_USERS: AuthUser[] = [
     email: 'customer@ministore.com',
     password: 'customer123',
     role: 'customer',
-    createdAt: new Date().toISOString(),
+    createdAt: '2024-01-01T00:00:00.000Z',
   },
 ];
 

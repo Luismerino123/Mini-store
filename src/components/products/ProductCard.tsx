@@ -36,7 +36,7 @@ export function ProductCard({ product, isDeactivated = false }: ProductCardProps
   return (
     <Link href={`/products/${product.id}`}>
       <div
-        className={`group relative flex h-full flex-col rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md ${isDeactivated ? 'opacity-50' : ''}`}
+        className={`group relative flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-slate-200/80 ${isDeactivated ? 'opacity-50' : ''}`}
       >
         {isDeactivated && (
           <Badge variant="danger" className="absolute right-3 top-3 z-10">
@@ -44,12 +44,12 @@ export function ProductCard({ product, isDeactivated = false }: ProductCardProps
           </Badge>
         )}
 
-        <div className="relative mb-3 flex h-48 items-center justify-center overflow-hidden rounded-lg bg-gray-50">
+        <div className="relative mb-3 flex h-48 items-center justify-center overflow-hidden rounded-xl bg-slate-50">
           <Image
             src={product.image}
             alt={product.title}
             fill
-            className="object-contain p-4 transition-transform duration-200 group-hover:scale-105"
+            className="object-contain p-4 transition-transform duration-300 group-hover:scale-110"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
           />
         </div>
@@ -59,24 +59,24 @@ export function ProductCard({ product, isDeactivated = false }: ProductCardProps
             {product.category}
           </Badge>
 
-          <h3 className="line-clamp-2 text-sm font-semibold text-gray-800 group-hover:text-blue-600">
+          <h3 className="line-clamp-2 text-sm font-semibold leading-snug text-slate-800 transition-colors group-hover:text-indigo-600">
             {product.title}
           </h3>
 
-          <div className="flex items-center gap-1 text-xs text-gray-500">
-            <Star className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400" />
-            <span>{product.rating.rate}</span>
+          <div className="flex items-center gap-1 text-xs text-slate-400">
+            <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
+            <span className="font-medium text-slate-600">{product.rating.rate}</span>
             <span>({product.rating.count})</span>
           </div>
 
           <div className="mt-auto flex items-center justify-between pt-2">
-            <span className="text-lg font-bold text-blue-600">{formatPrice(product.price)}</span>
+            <span className="text-lg font-bold text-indigo-600">{formatPrice(product.price)}</span>
 
             {(!isAuthenticated || user?.role === 'customer') && !isDeactivated && (
               <Button
                 size="sm"
                 onClick={handleAddToCart}
-                className="opacity-0 transition-opacity group-hover:opacity-100"
+                className="opacity-0 transition-all duration-200 group-hover:opacity-100"
               >
                 <ShoppingCart className="h-4 w-4" />
                 Add

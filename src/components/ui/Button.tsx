@@ -11,11 +11,11 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variants: Record<ButtonVariant, string> = {
-  primary: 'bg-blue-600 text-white hover:bg-blue-700 disabled:bg-blue-300',
-  secondary: 'bg-gray-200 text-gray-800 hover:bg-gray-300 disabled:bg-gray-100',
+  primary: 'bg-indigo-600 text-white hover:bg-indigo-700 disabled:bg-indigo-300',
+  secondary: 'bg-slate-100 text-slate-800 hover:bg-slate-200 disabled:bg-slate-50',
   danger: 'bg-red-600 text-white hover:bg-red-700 disabled:bg-red-300',
-  ghost: 'bg-transparent text-gray-700 hover:bg-gray-100',
-  outline: 'border border-blue-600 text-blue-600 hover:bg-blue-50 disabled:opacity-50',
+  ghost: 'bg-transparent text-slate-700 hover:bg-slate-100',
+  outline: 'border border-indigo-600 text-indigo-600 hover:bg-indigo-50 disabled:opacity-50',
 };
 
 const sizes: Record<ButtonSize, string> = {
@@ -42,7 +42,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       disabled={disabled || isLoading}
       className={cn(
         'inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-colors',
-        'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1',
+        'focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1',
         'disabled:cursor-not-allowed',
         variants[variant],
         sizes[size],

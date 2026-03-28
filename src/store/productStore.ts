@@ -19,7 +19,15 @@ export const useProductStore = create<ProductState>()(
       deactivatedIds: [],
 
       addProduct: (product: Product) =>
-        set((state) => ({ localProducts: [...state.localProducts, product] })),
+        set((state) => {
+          const exists = state.localProducts.some((p) => p.id === product.id);
+          if (exists) {
+            return {
+              localProducts: state.localProducts.map((p) => (p.id === product.id ? product : p)),
+            };
+          }
+          return { localProducts: [...state.localProducts, product] };
+        }),
 
       updateProduct: (id: number, data: UpdateProductInput) =>
         set((state) => ({

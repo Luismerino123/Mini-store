@@ -24,7 +24,8 @@ export default function AdminProductsPage() {
       .finally(() => setIsLoading(false));
   }, []);
 
-  const allProducts = [...localProducts, ...apiProducts];
+  const localIds = new Set(localProducts.map((p) => p.id));
+  const allProducts = [...localProducts, ...apiProducts.filter((p) => !localIds.has(p.id))];
 
   const handleDelete = async (id: number, isLocal: boolean) => {
     if (!confirm('Are you sure you want to delete this product?')) return;
@@ -44,7 +45,7 @@ export default function AdminProductsPage() {
   return (
     <div>
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-800">Products</h1>
+        <h1 className="text-2xl font-bold text-slate-800">Products</h1>
         <Link href="/admin/products/create">
           <Button>
             <Plus className="h-4 w-4" />
@@ -56,30 +57,30 @@ export default function AdminProductsPage() {
       {isLoading ? (
         <div className="flex flex-col gap-3">
           {Array.from({ length: 5 }).map((_, i) => (
-            <div key={i} className="h-16 animate-pulse rounded-xl bg-gray-200" />
+            <div key={i} className="h-16 animate-pulse rounded-xl bg-slate-200" />
           ))}
         </div>
       ) : (
-        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+        <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
           <table className="w-full text-sm">
-            <thead className="border-b border-gray-100 bg-gray-50">
+            <thead className="border-b border-slate-100 bg-slate-50">
               <tr>
-                <th className="px-4 py-3 text-left font-medium text-gray-600">Product</th>
-                <th className="px-4 py-3 text-left font-medium text-gray-600">Category</th>
-                <th className="px-4 py-3 text-left font-medium text-gray-600">Price</th>
-                <th className="px-4 py-3 text-left font-medium text-gray-600">Status</th>
-                <th className="px-4 py-3 text-right font-medium text-gray-600">Actions</th>
+                <th className="px-4 py-3 text-left font-medium text-slate-600">Product</th>
+                <th className="px-4 py-3 text-left font-medium text-slate-600">Category</th>
+                <th className="px-4 py-3 text-left font-medium text-slate-600">Price</th>
+                <th className="px-4 py-3 text-left font-medium text-slate-600">Status</th>
+                <th className="px-4 py-3 text-right font-medium text-slate-600">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-slate-100">
               {allProducts.map((product) => {
                 const deactivated = isDeactivated(product.id);
-                const isLocal = localProducts.some((p) => p.id === product.id);
+                const isLocal = localIds.has(product.id);
                 return (
                   <tr key={product.id} className={deactivated ? 'opacity-50' : ''}>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
-                        <div className="relative h-10 w-10 flex-shrink-0 overflow-hidden rounded-lg bg-gray-100">
+                        <div className="relative h-10 w-10 flex-shrink-0 overflow-hidden rounded-lg bg-slate-100">
                           <Image
                             src={product.image}
                             alt={product.title}
@@ -88,7 +89,7 @@ export default function AdminProductsPage() {
                             sizes="40px"
                           />
                         </div>
-                        <span className="max-w-[200px] truncate font-medium text-gray-800">
+                        <span className="max-w-[200px] truncate font-medium text-slate-800">
                           {product.title}
                         </span>
                       </div>
@@ -98,7 +99,7 @@ export default function AdminProductsPage() {
                         {product.category}
                       </Badge>
                     </td>
-                    <td className="px-4 py-3 font-semibold text-blue-600">
+                    <td className="px-4 py-3 font-semibold text-indigo-600">
                       {formatPrice(product.price)}
                     </td>
                     <td className="px-4 py-3">
@@ -113,15 +114,11 @@ export default function AdminProductsPage() {
                             <Pencil className="h-4 w-4" />
                           </Button>
                         </Link>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => toggleActive(product.id)}
-                        >
+                        <Button variant="ghost" size="sm" onClick={() => toggleActive(product.id)}>
                           {deactivated ? (
-                            <Eye className="h-4 w-4 text-green-600" />
+                            <Eye className="h-4 w-4 text-emerald-600" />
                           ) : (
-                            <EyeOff className="h-4 w-4 text-yellow-600" />
+                            <EyeOff className="h-4 w-4 text-amber-500" />
                           )}
                         </Button>
                         <Button

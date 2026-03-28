@@ -27,9 +27,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   if (!isAuthenticated || user?.role !== 'admin') return null;
 
   return (
-    <div className="flex min-h-[calc(100vh-57px)]">
-      <aside className="hidden w-56 flex-col border-r border-gray-200 bg-white p-4 md:flex">
-        <p className="mb-3 px-3 text-xs font-semibold uppercase tracking-wider text-gray-400">
+    <div className="flex min-h-[calc(100vh-65px)]">
+      <aside className="hidden w-56 flex-col border-r border-slate-200 bg-white p-4 md:flex">
+        <p className="mb-3 px-3 text-xs font-semibold uppercase tracking-wider text-slate-400">
           Admin Panel
         </p>
         <nav className="flex flex-col gap-1">
@@ -40,8 +40,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               className={cn(
                 'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
                 pathname === href
-                  ? 'bg-blue-50 text-blue-700'
-                  : 'text-gray-600 hover:bg-gray-100 hover:text-gray-800',
+                  ? 'bg-indigo-50 text-indigo-700'
+                  : 'text-slate-600 hover:bg-slate-100 hover:text-slate-800',
               )}
             >
               <Icon className="h-4 w-4" />

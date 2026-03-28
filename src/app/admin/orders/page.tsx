@@ -10,30 +10,30 @@ export default function AdminOrdersPage() {
 
   return (
     <div>
-      <h1 className="mb-6 text-2xl font-bold text-gray-800">Customer Orders</h1>
+      <h1 className="mb-6 text-2xl font-bold text-slate-800">Customer Orders</h1>
 
       {orders.length === 0 ? (
         <div className="flex min-h-64 flex-col items-center justify-center gap-3 text-center">
-          <ShoppingBag className="h-12 w-12 text-gray-200" />
-          <p className="text-gray-500">No orders yet</p>
+          <ShoppingBag className="h-12 w-12 text-slate-200" />
+          <p className="text-slate-500">No orders yet</p>
         </div>
       ) : (
         <div className="flex flex-col gap-4">
           {[...orders].reverse().map((order) => (
             <div
               key={order.id}
-              className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm"
+              className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm"
             >
               <div className="mb-3 flex items-center justify-between">
                 <div>
-                  <p className="font-semibold text-gray-800">Order #{order.id.slice(-6)}</p>
-                  <p className="text-sm text-gray-500">
+                  <p className="font-semibold text-slate-800">Order #{order.id.slice(-6)}</p>
+                  <p className="text-sm text-slate-500">
                     {order.userName} · {new Date(order.createdAt).toLocaleDateString()}
                   </p>
                 </div>
                 <div className="flex items-center gap-3">
                   <Badge variant="success">{order.status}</Badge>
-                  <span className="text-lg font-bold text-blue-600">
+                  <span className="text-lg font-bold text-indigo-600">
                     {formatPrice(order.total)}
                   </span>
                 </div>
@@ -43,7 +43,7 @@ export default function AdminOrdersPage() {
                 {order.items.map(({ product, quantity }) => (
                   <span
                     key={product.id}
-                    className="rounded-lg bg-gray-100 px-3 py-1 text-xs text-gray-600"
+                    className="rounded-lg bg-slate-100 px-3 py-1 text-xs text-slate-600"
                   >
                     {product.title.slice(0, 25)}... ×{quantity}
                   </span>
