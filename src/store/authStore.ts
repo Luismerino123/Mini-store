@@ -9,6 +9,7 @@ interface AuthState {
   error: string | null;
   login: (input: LoginInput) => Promise<boolean>;
   register: (input: RegisterInput) => Promise<boolean>;
+  resetPassword: (email: string, newPassword: string) => Promise<boolean>;
   logout: () => void;
   clearError: () => void;
 }
@@ -111,6 +112,25 @@ export const useAuthStore = create<AuthState>()(
 
         const { password: _pwd, ...user } = newUser;
         set({ user, isAuthenticated: true, isLoading: false });
+        return true;
+      },
+
+      resetPassword: async (email: string, newPassword: string) => {
+        set({ isLoading: true, error: null });
+        await new Promise((resolve) => setTimeout(resolve, 400));
+
+        const normalizedEmail = email.trim().toLowerCase();
+        const users = getStoredUsers();
+        const index = users.findIndex((u) => u.email === normalizedEmail);
+
+        if (index === -1) {
+          set({ isLoading: false, error: 'No account found with that email' });
+          return false;
+        }
+
+        users[index] = { ...users[index], password: newPassword };
+        saveUsers(users);
+        set({ isLoading: false });
         return true;
       },
 
