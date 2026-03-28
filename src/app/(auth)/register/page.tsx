@@ -29,7 +29,8 @@ export default function RegisterPage() {
     if (!form.password) errs.password = 'Password is required';
     else if (form.password.length < 6) errs.password = 'At least 6 characters';
     if (!form.confirmPassword) errs.confirmPassword = 'Please confirm your password';
-    else if (form.password !== form.confirmPassword) errs.confirmPassword = 'Passwords do not match';
+    else if (form.password !== form.confirmPassword)
+      errs.confirmPassword = 'Passwords do not match';
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
